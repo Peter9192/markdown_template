@@ -27,11 +27,13 @@ docx: $(DOCX)
 epub: $(EPUB)
 odt: $(ODT)
 
+# Instructions for make all or make clean
 PHONY: all clean
 all: $(PDF) $(HTML) $(TEX) $(DOCX) $(EPUB) $(ODT)
 clean:
 	rm $(PDF) $(HTML) $(TEX) $(DOCX) $(EPUB) $(ODT)
 
+# Instructions for making individual formats 
 pdf/%.pdf: markdown/%.md
 	pandoc -s -o $@ $<
 
