@@ -1,6 +1,9 @@
 # Makefile to convert markdown source files to multiple output formats
 # Peter Kalverla, April 2018
 #
+#	Clear make instructions
+# https://swcarpentry.github.io/make-novice/reference.html
+#
 # Example Makefiles:
 # https://github.com/kjhealy/pandoc-templates/blob/master/examples/Makefile
 # https://gist.github.com/kristopherjohnson/7466917
@@ -19,6 +22,12 @@ DOCX := $(patsubst markdown/%,docx/%,$(SRC:.md=.docx))
 EPUB := $(patsubst markdown/%,epub/%,$(SRC:.md=.epub))
 ODT := $(patsubst markdown/%,odt/%,$(SRC:.md=.odt))
 
+# Instructions for make all and make clean
+.PHONY: all clean
+all: $(PDF) $(HTML) $(TEX) $(DOCX) $(EPUB) $(ODT)
+clean:
+	rm $(PDF) $(HTML) $(TEX) $(DOCX) $(EPUB) $(ODT)
+
 # Expand destination file list for desired variables
 pdf: $(PDF)
 html: $(HTML)
@@ -27,13 +36,7 @@ docx: $(DOCX)
 epub: $(EPUB)
 odt: $(ODT)
 
-# Instructions for make all or make clean
-PHONY: all clean
-all: $(PDF) $(HTML) $(TEX) $(DOCX) $(EPUB) $(ODT)
-clean:
-	rm $(PDF) $(HTML) $(TEX) $(DOCX) $(EPUB) $(ODT)
-
-# Instructions for making individual formats 
+# Instructions for making individual formats
 pdf/%.pdf: markdown/%.md
 	pandoc -s -o $@ $<
 
